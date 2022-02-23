@@ -16,33 +16,39 @@ def main_menu():  # Main menu function
 
 
 def encrypt_data():
-    print("\n:: Encrypt Data ::")
-    print("1. Encrypt a message and save into a file")
-    print("2. Encrypt a file")
-    print("3. Decrypt a file")
-    print("4. Return to Main Menu\n")
-    encrypt_data_selection = input("Select a menu - Input a number: ")
-    while encrypt_data_selection != ("1", "2", "3", "4"):
-        if not encrypt_data_selection.isdigit():
+    encrypt_data_loop = True
+    while encrypt_data_loop:
+        print("\n:: Encrypt Data ::")
+        print("1. Encrypt a message and save into a file")
+        print("2. Encrypt a file")
+        print("3. Decrypt a file")
+        print("4. Return to Main Menu\n")
+        encrypt_data_selection = input("Select a menu - Input a number: ")
+        while not encrypt_data_selection.isdigit():  # checking that main menu selection is a digit
             encrypt_data_selection = input("\nYou have entered a non digit value, Select again: ")
-        elif encrypt_data_selection == "1":
-
+        if encrypt_data_selection == "1":
             message_to_encrypt = input("Input a message to encrypt: ")
             print("Your message is ", message_to_encrypt)
-            encryption_key = input("Input a number for the encryption key (number should be between 1 and 26 - inclusive: ")
+            encryption_key = input(
+                "Input a number for the encryption key (number should be between 1 and 26 - inclusive: ")
             print("Your encryption key is: ", encryption_key)
             # message encoding happens here
             encoded_message = 0  # placeholder
             print("You're encoded message is: ", encoded_message)
         elif encrypt_data_selection == "2":
-            print("test")
+            print("option 2 test")
         elif encrypt_data_selection == "3":
-            print("test")
+            print("option 3 test")
         elif encrypt_data_selection == "4":
-            print("test")
+            print("option 4 exits to main menu")
+            encrypt_data_loop = False
+        else:
+            print("There is no menu", encrypt_data_selection, "please try again")
+
 
 def extract_data():
     print("test")
+
 
 
 def chat_application():
@@ -51,21 +57,22 @@ def chat_application():
 
 # This is the main while loop that checks for correct input from the user for the menu and then based on input navigates
 # around the program or exits.
-main_menu()
-main_selection = input("Select a menu - Input a number: ")  # asking user for menu input
-while main_selection != ("1", "2", "3", "4"):  # loops while main selection isn't expected digits
-    if not main_selection.isdigit():  # checking that main menu selection is a digit
+main_loop = True
+while main_loop:  # loops while main selection isn't expected digits
+    main_menu()
+    main_selection = input("Select a menu - Input a number: ")  # asking user for menu input
+    while not main_selection.isdigit():  # checking that main menu selection is a digit
         main_selection = input("\nYou have entered a non digit value, Select again: ")  # prompting reentry
 
-    elif main_selection == "1":  # data encryption code block
-        encrypt_data()
-        break
+    if main_selection == "1":  # data encryption code block
+        encrypt_data()  # calling the encrypt data function which holds all of the code for this block
+
     elif main_selection == "2":  # data extraction code block
-        print("2 test")
-        break
+        extract_data()  # calling the extract data function which holds all of the code for this block
+
     elif main_selection == "3":  # chat application code block
-        print("3 test")
-        break
+        chat_application()  # calling the chat application function which holds all of the code for this block
+
     elif main_selection == "4":  # quits out of the program
         print("\nYou have exited the Application")
         quit()
