@@ -1,5 +1,7 @@
 import random
 import string
+import socket
+from threading import Thread
 
 # Name: Jacob Frazer
 # Student Number: 31004433
@@ -15,6 +17,19 @@ def main_menu():  # Main menu function
     print("4: Quit\n")
 
 
+def encrypt(text, s):
+    result = ""
+    for i in range(len(text)):
+        char = text[i]
+        if (char.isupper()):  # Encrypt uppercase characters
+            result += chr((ord(char) + s - 65) % 26 + 65)
+        if (char.isspace()):  # ensuring whitespace / space
+            result += chr((ord(char)))
+        else: # Encrypt lowercase characters
+            result += chr((ord(char) + s - 97) % 26 + 97)
+    return result
+
+
 def encrypt_data():
     encrypt_data_loop = True
     while encrypt_data_loop:
@@ -23,32 +38,38 @@ def encrypt_data():
         print("2. Encrypt a file")
         print("3. Decrypt a file")
         print("4. Return to Main Menu\n")
+
         encrypt_data_selection = input("Select a menu - Input a number: ")
         while not encrypt_data_selection.isdigit():  # checking that main menu selection is a digit
             encrypt_data_selection = input("\nYou have entered a non digit value, Select again: ")
+
         if encrypt_data_selection == "1":
-            message_to_encrypt = input("Input a message to encrypt: ")
-            print("Your message is ", message_to_encrypt)
-            encryption_key = input(
-                "Input a number for the encryption key (number should be between 1 and 26 - inclusive: ")
+            message_to_encrypt = input("Input a message to encrypt: ")  # allows user to input a message
+            print("Your message is ", message_to_encrypt)  # user prompted with their message
+            encryption_key = int(input(
+                "Input a number for the encryption key (number should be between 1 and 26 - inclusive: "))
             print("Your encryption key is: ", encryption_key)
-            # message encoding happens here
-            encoded_message = 0  # placeholder
-            print("You're encoded message is: ", encoded_message)
+            print("Encoded Message: " + encrypt(message_to_encrypt, encryption_key))
+            print("\nMessage saved to encoded_msg.txt")
+            with open("encoded_msg.txt", "w") as f:
+                f.write(encrypt(message_to_encrypt, encryption_key))
+
         elif encrypt_data_selection == "2":
             print("option 2 test")
+
         elif encrypt_data_selection == "3":
             print("option 3 test")
+
         elif encrypt_data_selection == "4":
-            print("option 4 exits to main menu")
+            print("\n Exiting to Main Menu")
             encrypt_data_loop = False
+
         else:
-            print("There is no menu", encrypt_data_selection, "please try again")
+            print("\nThere is no menu", encrypt_data_selection, "please try again")
 
 
 def extract_data():
     print("test")
-
 
 
 def chat_application():
@@ -78,6 +99,5 @@ while main_loop:  # loops while main selection isn't expected digits
         quit()
     else:
         print("\nThere is no menu", main_selection, "please try again.")
-        main_menu()  # printing the main menu again
-        main_selection = input("\nSelect a menu - input a number: ")  # asking user for re-entry
+
 
