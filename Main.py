@@ -51,7 +51,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
             message_to_encrypt = input("\nInput a message to encrypt: ")  # allows user to input a message
             print("Your message is ", message_to_encrypt)  # user prompted with their message
             encryption_key = int(input(
-                "Input a number for the encryption key (number should be between 1 and 26 - inclusive: "))
+                "\nInput a number for the encryption key (number should be between 1 and 26 - inclusive: "))
             print("Your encryption key is: ", encryption_key)
             print("Encoded Message: " + encrypt(message_to_encrypt, encryption_key))
             print("\nMessage saved to encoded_msg.txt")
@@ -59,7 +59,18 @@ def encrypt_data():  # Section B req 2, 3 & 4
                 f.write(encrypt(message_to_encrypt, encryption_key))
 
         elif encrypt_data_selection == "2":  # req 3
-            print("option 2 test")
+            file_input = input("Please input the file name to encrypt (format filename.txt): ")
+            with open(file_input) as file_data:
+                lines = file_data.read().strip()
+                print(lines)
+            file_encryption_key = int(input("\nPlease enter the key to encrypt the message: "))
+            with open("encryptedFile.txt",
+                      "w") as new_encrypted_file:  # file handing with open allows me to not need a close statement
+                new_encrypted_file.write(encrypt(lines, file_encryption_key))
+            print("Encryption applied, file saved as encryptedFile.txt ")
+            with open("encryptedFile.txt", "r") as show_file:
+                lines = show_file.read()
+                print(lines)
 
         elif encrypt_data_selection == "3":  # req 4
             print("option 3 test")
@@ -72,7 +83,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
             print("\nThere is no menu", encrypt_data_selection, "please try again")
 
 
-def extract_data():  # Section C Req's 5, 6, 7, & 8
+def extract_data():  # Section C req 5, 6, 7, & 8
     extract_data_loop = True
     while extract_data_loop:
         print("\n\t:: Extract Data ::")
