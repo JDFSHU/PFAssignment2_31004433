@@ -110,7 +110,7 @@ def extract_data():  # Section C req 5, 6, 7, & 8
 
         if extract_data_selection == "1":
             cols = ["\b: Names :", ": Date :"]  # defining the columns
-            data = pd.read_csv('data.txt', sep=",", names=cols, )  # adds column header
+            data = pd.read_csv("data.txt", sep=",", names=cols, )  # adds column header
             data.index += 1  # increments index position so index doesnt start at 0
             data.index.names = ["No"]  # index position header
             print(f"\n\t:: View ALl Records :: \n "
