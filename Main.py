@@ -1,7 +1,4 @@
-import random
-import string
-import socket
-from threading import Thread
+import pandas as pd
 import os
 
 
@@ -12,7 +9,7 @@ import os
 
 def main_menu():  # Main menu function
     print("\n:: Welcome to the Application ::")
-    print("=" * 32)
+    print("-" * 32)
     print("1: Encrypt Data")
     print("2: Extract information from files")
     print("3: Chat Application")
@@ -34,10 +31,23 @@ def encrypt_data():  # Section B req 2, 3 & 4
                 result += chr((ord(char) + s - 97) % 26 + 97)
         return result
 
+    def decrypt(text, s):  # indented function for returning Caesar cipher encryption
+        result = ""
+        whitespace = " "  # white space / spaces encrypted as @ symbol
+        for i in range(len(text)):
+            char = text[i]
+            if (char.isupper()):  # Encrypt uppercase characters
+                result += chr((ord(char) - s - 65) % 26 + 65)
+            if (char.isspace()):  # ensuring whitespace / space is included in encryption
+                result += chr((ord(whitespace)))
+            else:  # Encrypt lowercase characters
+                result += chr((ord(char) - s - 97) % 26 + 97)
+        return result
+
     encrypt_data_loop = True
     while encrypt_data_loop:
         print("\n\t :: Encrypt/Decrypt Data ::")
-        print("=" * 42)
+        print("-" * 42)
         print("1. Encrypt a message and save into a file")
         print("2. Encrypt a file")
         print("3. Decrypt a file")
@@ -87,7 +97,7 @@ def extract_data():  # Section C req 5, 6, 7, & 8
     extract_data_loop = True
     while extract_data_loop:
         print("\n\t:: Extract Data ::")
-        print("=" * 28)
+        print("-" * 28)
         print("1. View all Records")
         print("2. View Records by Date")
         print("3. View Records by User")
@@ -99,7 +109,14 @@ def extract_data():  # Section C req 5, 6, 7, & 8
             extract_data_selection = input("\nYou have entered a non digit value, Select again: ")
 
         if extract_data_selection == "1":
-            print("option 1 test")
+            cols = ["\b: Names :", ": Date :"]  # defining the columns
+            data = pd.read_csv('data.txt', sep=",", names=cols, )  # adds column header
+            data.index += 1  # increments index position so index doesnt start at 0
+            data.index.names = ["No"]  # index position header
+            print(f"\n\t:: View ALl Records :: \n "
+                  f"\b\b--------------------------------\n\n", data)
+            print()
+            print("-" * 33)
 
         elif extract_data_selection == "2":
             print("option 2 test")
