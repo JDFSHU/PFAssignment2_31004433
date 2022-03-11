@@ -20,24 +20,24 @@ def encrypt_data():  # Section B req 2, 3 & 4
 
     def encrypt(key, message):
         message = message.lower()  # converting any message to upper
-        alpha = "abcdefghijklmnopqrstuvwxyz "  # alphabet used to encrypt
+        alpha = "abcdefghijklmnopqrstuvwxyz"  # alphabet used to encrypt
         result = ""  # creating empty variable to store for loop as it iterates
 
         for letter in message:
             if letter in alpha:  # if the for loop detects a matching letter in alphabet
                 letter_index = (alpha.find(letter) + key) % len(
-                    alpha)  # finds index positon and adds key, modulo prevents looping around the alpha string
-                result = result + alpha[letter_index]
-            elif letter == " ":  # if letter is whitespace its included in encryption
-                letter_index = (alpha.find(letter) + key) % len(alpha)
+                    alpha)  # finds index position and adds key, modulo prevents looping around the alpha string
                 result = result + alpha[letter_index]
             else:
                 result = result + letter
-        return result
+
+        encrypted_message = result.replace(" ", "@")
+        encrypted_message = encrypted_message.replace("\n", "!")
+        return encrypted_message
 
     def decrypt(key, message):
         message = message.lower()  # converting any message to upper
-        alpha = "abcdefghijklmnopqrstuvwxyz "  # alphabet used to encrypt
+        alpha = "abcdefghijklmnopqrstuvwxyz"  # alphabet used to encrypt
         result = ""  # creating empty variable to store for loop as it iterates
 
         for letter in message:
@@ -47,7 +47,10 @@ def encrypt_data():  # Section B req 2, 3 & 4
                 result = result + alpha[letter_index]
             else:
                 result = result + letter
-        return result
+
+        decrypted_message = result.replace("@", " ")
+        decrypted_message = decrypted_message.replace("!", "\n")
+        return decrypted_message
 
     encrypt_data_loop = True
     while encrypt_data_loop:
@@ -68,10 +71,10 @@ def encrypt_data():  # Section B req 2, 3 & 4
             while True:
                 try:
                     encryption_key = int(input(
-                        "\nInput a number for the encryption key between 1 and 27: "))
-                    while encryption_key < 1 or encryption_key > 27:
+                        "\nInput a number for the encryption key between 1 and 26: "))
+                    while encryption_key < 1 or encryption_key > 26:
                         encryption_key = int(input(
-                            "\nYou're key is out of bounds, please re enter a key between 1 and 27: "))
+                            "\nYou're key is out of bounds, please re enter a key between 1 and 26: "))
 
                     print("Your encryption key is: ", encryption_key)
                     print("Encoded Message: " + encrypt(encryption_key, message_to_encrypt))
@@ -81,7 +84,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
                         f.write(encrypt(encryption_key, message_to_encrypt))
                     break
                 except ValueError:
-                    print("You must enter a NUMBER between 1 and 27")
+                    print("You must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "2":  # req 3
             while True:
@@ -98,9 +101,9 @@ def encrypt_data():  # Section B req 2, 3 & 4
             while True:
                 try:
                     file_encryption_key = int(input("\nPlease enter the key to encrypt the message: "))
-                    while file_encryption_key < 1 or file_encryption_key > 27:
+                    while file_encryption_key < 1 or file_encryption_key > 26:
                         file_encryption_key = int(input(
-                            "\nYou're key is out of bounds, please re enter a key between 1 and 27: "))
+                            "\nYou're key is out of bounds, please re enter a key between 1 and 26: "))
                     with open("encryptedFile.txt",
                               "w") as new_encrypted_file:
                         new_encrypted_file.write(encrypt(file_encryption_key, lines))
@@ -111,7 +114,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
                         print(lines)
                     break
                 except ValueError:
-                    print("You must enter a NUMBER between 1 and 27")
+                    print("You must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "3":  # req 4
             while True:
@@ -127,10 +130,10 @@ def encrypt_data():  # Section B req 2, 3 & 4
 
             while True:
                 try:
-                    file_decryption_key = int(input("\nInput a number for the decryption key between 1 and 27: "))
-                    while file_decryption_key < 1 or file_decryption_key > 27:
+                    file_decryption_key = int(input("\nInput a number for the decryption key between 1 and 26: "))
+                    while file_decryption_key < 1 or file_decryption_key > 26:
                         file_decryption_key = int(input(
-                            "\nYou're key is out of bounds, please re enter a key between 1 and 27: "))
+                            "\nYou're key is out of bounds, please re enter a key between 1 and 26: "))
                     with open("decryptedFile.txt",
                               "w") as new_encrypted_file:
                         new_encrypted_file.write(decrypt(file_decryption_key, lines))
@@ -140,7 +143,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
                         print(lines)
                     break
                 except ValueError:
-                    print("You must enter a NUMBER between 1 and 27")
+                    print("You must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "4":
             print("\n Exiting to Main Menu")
