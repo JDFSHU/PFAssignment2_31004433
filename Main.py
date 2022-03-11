@@ -84,11 +84,16 @@ def encrypt_data():  # Section B req 2, 3 & 4
                     print("You must enter a NUMBER between 1 and 27")
 
         elif encrypt_data_selection == "2":  # req 3
-            file_input = input("\nPlease input the file name to encrypt (format filename.txt): ")
-            print()
-            with open(file_input) as file_data:
-                lines = file_data.read().strip()
-                print(lines)
+            while True:
+                file_input = input("\nPlease input the file name to encrypt (format filename.txt): ")
+                print()
+                try:
+                    with open(file_input) as file_data:
+                        lines = file_data.read().strip()
+                        print(lines)
+                    break
+                except FileNotFoundError:
+                    print("File doesn't exist, Check available files or ensure correct input format filename.txt")
 
             while True:
                 try:
@@ -109,11 +114,16 @@ def encrypt_data():  # Section B req 2, 3 & 4
                     print("You must enter a NUMBER between 1 and 27")
 
         elif encrypt_data_selection == "3":  # req 4
-            file_input = input("\nPlease input the file name to decrypt (format filename.txt): ")
-            print()
-            with open(file_input) as file_data:
-                lines = file_data.read().strip()
-                print(lines)
+            while True:
+                file_input = input("\nPlease input the file name to decrypt (format filename.txt): ")
+                print()
+                try:
+                    with open(file_input) as file_data:
+                        lines = file_data.read().strip()
+                        print(lines)
+                    break
+                except FileNotFoundError:
+                    print("File doesn't exist, Check available files or ensure correct input format filename.txt")
 
             while True:
                 try:
@@ -121,11 +131,11 @@ def encrypt_data():  # Section B req 2, 3 & 4
                     while file_decryption_key < 1 or file_decryption_key > 27:
                         file_decryption_key = int(input(
                             "\nYou're key is out of bounds, please re enter a key between 1 and 27: "))
-                    with open("encryptedFile.txt",
+                    with open("decryptedFile.txt",
                               "w") as new_encrypted_file:
                         new_encrypted_file.write(decrypt(file_decryption_key, lines))
-                    print("\nDecryption applied, file saved as encryptedFile.txt \n")
-                    with open("encryptedFile.txt", "r") as show_file:
+                    print("\nDecryption applied, file saved as decryptedFile.txt \n")
+                    with open("decryptedFile.txt", "r") as show_file:
                         lines = show_file.read()
                         print(lines)
                     break
