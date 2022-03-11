@@ -89,18 +89,24 @@ def encrypt_data():  # Section B req 2, 3 & 4
             with open(file_input) as file_data:
                 lines = file_data.read().strip()
                 print(lines)
-            file_encryption_key = int(input("\nPlease enter the key to encrypt the message: "))
-            while file_encryption_key < 1 or file_encryption_key > 27:
-                file_encryption_key = int(input(
-                    "\nYou're key is out of bounds, please re enter a key between 1 and 27: "))
-            with open("encryptedFile.txt",
-                      "w") as new_encrypted_file:  # file handing with open allows me to not need a close statement
-                new_encrypted_file.write(encrypt(file_encryption_key, lines))
-            print("\nEncryption applied, file saved as encryptedFile.txt ")
-            print()
-            with open("encryptedFile.txt", "r") as show_file:
-                lines = show_file.read()
-                print(lines)
+
+            while True:
+                try:
+                    file_encryption_key = int(input("\nPlease enter the key to encrypt the message: "))
+                    while file_encryption_key < 1 or file_encryption_key > 27:
+                        file_encryption_key = int(input(
+                            "\nYou're key is out of bounds, please re enter a key between 1 and 27: "))
+                    with open("encryptedFile.txt",
+                              "w") as new_encrypted_file:
+                        new_encrypted_file.write(encrypt(file_encryption_key, lines))
+                    print("\nEncryption applied, file saved as encryptedFile.txt ")
+                    print()
+                    with open("encryptedFile.txt", "r") as show_file:
+                        lines = show_file.read()
+                        print(lines)
+                    break
+                except ValueError:
+                    print("You must enter a NUMBER between 1 and 27")
 
         elif encrypt_data_selection == "3":  # req 4
             file_input = input("\nPlease input the file name to decrypt (format filename.txt): ")
@@ -108,17 +114,23 @@ def encrypt_data():  # Section B req 2, 3 & 4
             with open(file_input) as file_data:
                 lines = file_data.read().strip()
                 print(lines)
-            file_decryption_key = int(input("\nInput a number for the decryption key between 1 and 27: "))
-            while file_decryption_key < 1 or file_decryption_key > 27:
-                file_decryption_key = int(input(
-                    "\nYou're key is out of bounds, please re enter a key between 1 and 27: "))
-            with open("encryptedFile.txt",
-                      "w") as new_encrypted_file:  # file handing with open allows me to not need a close statement
-                new_encrypted_file.write(decrypt(file_decryption_key, lines))
-            print("\nDecryption applied, file saved as encryptedFile.txt \n")
-            with open("encryptedFile.txt", "r") as show_file:
-                lines = show_file.read()
-                print(lines)
+
+            while True:
+                try:
+                    file_decryption_key = int(input("\nInput a number for the decryption key between 1 and 27: "))
+                    while file_decryption_key < 1 or file_decryption_key > 27:
+                        file_decryption_key = int(input(
+                            "\nYou're key is out of bounds, please re enter a key between 1 and 27: "))
+                    with open("encryptedFile.txt",
+                              "w") as new_encrypted_file:
+                        new_encrypted_file.write(decrypt(file_decryption_key, lines))
+                    print("\nDecryption applied, file saved as encryptedFile.txt \n")
+                    with open("encryptedFile.txt", "r") as show_file:
+                        lines = show_file.read()
+                        print(lines)
+                    break
+                except ValueError:
+                    print("You must enter a NUMBER between 1 and 27")
 
         elif encrypt_data_selection == "4":
             print("\n Exiting to Main Menu")
