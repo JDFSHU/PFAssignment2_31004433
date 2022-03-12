@@ -1,41 +1,30 @@
 import socket
 from threading import Thread
-import os
 
-# server's IP address
-SERVER_HOST = "127.0.0.1"
-SERVER_PORT = 5002 # port we want to use
-separator_token = "<SEP>" # we will use this to separate the client name & message
 
-# initialize list/set of all connected client's sockets
-client_sockets = set()
-# create a TCP socket
-s = socket.socket()
-# make the port as reusable port
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-# bind the socket to the address we specified
-s.bind((SERVER_HOST, SERVER_PORT))
-# listen for upcoming connections
-s.listen(5)
+SERVER_HOST = "127.0.0.1"  # server's IP address
+SERVER_PORT = 5002  # server port (obviously)
+separator_token = "<SEP>"  # we will use this to separate the client name & message
+client_sockets = set()  # initialize all connected client's sockets
+s = socket.socket()  # create a TCP socket
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # make the port as reusable port
+s.bind((SERVER_HOST, SERVER_PORT))  # bind the socket to the address we specified
+s.listen(5)  # listen for upcoming connections
 print(f"[*] Listening as {SERVER_HOST}:{SERVER_PORT}")
 
 
 def listen_for_client(cs):
     while True:
         try:
-            # keep listening for a message from `cs` socket
-            msg = cs.recv(1024).decode()
+
+            msg = cs.recv(1024).decode()  # keep listening for a message
         except Exception as e:
-            # client no longer connected
-            # remove it from the set
-            print(f"[!] Error: {e}")
-            client_sockets.remove(cs)
+            print(f"[!] Error: {e}")  # client no longer connected
+            client_sockets.remove(cs)  # remove it from the set
         else:
-            # if we received a message, replace the <SEP>
-            # token with ": " for nice printing
-            msg = msg.replace(separator_token, ": ")
-        # iterate over all connected sockets
-        for client_socket in client_sockets:
+            msg = msg.replace(separator_token, ": ")  # if we received a message, replace the <SEP>
+
+        for client_socket in client_sockets:  # iterate over all connected sockets
             # and send the message
             client_socket.send(msg.encode())
 
@@ -53,8 +42,7 @@ while True:
     # start the thread
     t.start()
 
-# close client sockets
-for cs in client_sockets:
+# I am aware this shouldn't work and is unreachable however if I move it or change it in anyway it stops working (:
+for cs in client_sockets:  # close client sockets
     cs.close()
-# close server socket
-s.close()
+s.close()  # close server socket
