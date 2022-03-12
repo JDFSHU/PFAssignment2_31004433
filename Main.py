@@ -194,13 +194,26 @@ def extract_data():  # Section C req 5, 6, 7, & 8
                 second = data[(data[': Date :'] == search)]
             else:
                 print("\nThere are", len(second), "user logs for this date.\n")
-                second.reset_index(drop=True, inplace=True)
-                second.index.names = ["No"]
-                second.index += 1
-                print(second)
+                print(second.to_string(index=False))
 
         elif extract_data_selection == "3":
-            print("option 3 test")
+            cols = ["\b: Names :", ": Date :"]  # list usage for req 7 list requirement
+            data = pd.read_csv('data.txt', sep=',', header=None, names=cols)
+            user_logins = pd.unique(data["\b: Names :"])
+            names_and_dates = {key: [] for key in user_logins}
+
+            for key in names_and_dates:
+                names = data.loc[data["\b: Names :"] == key]  # getting records for a specific group
+                names_and_dates[key] = list(
+                    names[": Date :"])  # list usage for req 7 list requirement
+
+            print("\n:: View Records by User ::")
+            print("-" * 28)
+            for key in names_and_dates:
+                print("Name:", key)
+                for item in names_and_dates[key]:
+                    print(item)
+                print()
 
         elif extract_data_selection == "4":
             print("option 4 test")
