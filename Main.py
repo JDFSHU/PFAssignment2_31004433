@@ -179,7 +179,25 @@ def extract_data():  # Section C req 5, 6, 7, & 8
             print("-" * 33)
 
         elif extract_data_selection == "2":
-            print("option 2 test")
+            print("\n:: View Records by Date ::")
+            print("-" * 28)
+            cols = ["\b: Names :", ": Date :"]
+            data = pd.read_csv("data.txt", header=None, names=cols)
+            data.index.names = ["No"]
+            data.index += 1
+            search = input("\nInput date using format DD/MM/YYYY: ")
+            second = data[(data[': Date :'] == search)]
+
+            while len(second) == 0:
+                print("\nNo Record Found! Make sure you are using the correct Date Format: DD/MM/YYYY")
+                search = input("\ninput date using format DD/MM/YYYY: ")
+                second = data[(data[': Date :'] == search)]
+            else:
+                print("\nThere are", len(second), "user logs for this date.\n")
+                second.reset_index(drop=True, inplace=True)
+                second.index.names = ["No"]
+                second.index += 1
+                print(second)
 
         elif extract_data_selection == "3":
             print("option 3 test")
