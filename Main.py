@@ -67,7 +67,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
 
         if encrypt_data_selection == "1":  # req 2
             message_to_encrypt = input("\nInput a message to encrypt: ")  # allows user to input a message
-            print("Your message is ", message_to_encrypt)  # user prompted with their message
+            print("\nYour message is ", message_to_encrypt)  # user prompted with their message
             while True:
                 try:
                     encryption_key = int(input(
@@ -76,8 +76,8 @@ def encrypt_data():  # Section B req 2, 3 & 4
                         encryption_key = int(input(
                             "\nYou're key is out of bounds, please re enter a key between 1 and 26: "))
 
-                    print("Your encryption key is: ", encryption_key)
-                    print("Encoded Message: " + encrypt(encryption_key, message_to_encrypt))
+                    print("\nYour encryption key is: ", encryption_key)
+                    print("\nEncoded Message: " + encrypt(encryption_key, message_to_encrypt))
                     print("\nMessage saved to encoded_msg.txt")
                     with open("encoded_msg.txt",
                               "w") as f:  # file handing with open allows me to not need a close statement
@@ -236,7 +236,7 @@ def chat_application():  # Section D req 9 & 10
     chat_application_loop = True
     while chat_application_loop:
         print("\n\t :: Chat Application ::")
-        print("=" * 32)
+        print("-" * 32)
         print("1. Start Server")
         print("2. Start Chat (Client)")
         print("3. Return to Main Menu\n")

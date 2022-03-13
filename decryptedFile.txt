@@ -1,0 +1,7 @@
+hi my name is zairul
+i like programming
+
+
+especially python i use tensor flow library
+
+also i like java and php
