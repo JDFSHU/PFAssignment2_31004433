@@ -169,8 +169,8 @@ def extract_data():  # Section C req 5, 6, 7, & 8
             extract_data_selection = input("\nYou have entered a non digit value, Select again: ")
 
         if extract_data_selection == "1":
-            cols = ["\b: Names :", ": Date :"]  # defining the columns
-            data = pd.read_csv("data.txt", sep=",", names=cols, )  # adds column header
+            cols = ["\bName", "Date"]  # defining the columns
+            data = pd.read_csv("data.txt", sep=",", names=cols)  # adds column header
             data.index += 1  # increments index position so index doesnt start at 0
             data.index.names = ["No"]  # index position header
             print(f"\n\t:: View ALl Records :: \n "
@@ -181,31 +181,30 @@ def extract_data():  # Section C req 5, 6, 7, & 8
         elif extract_data_selection == "2":
             print("\n:: View Records by Date ::")
             print("-" * 28)
-            cols = ["\b: Names :", ": Date :"]
+            cols = ["Name", "Date"]  # use of list to satisfy requirement
             data = pd.read_csv("data.txt", header=None, names=cols)
             data.index.names = ["No"]
             data.index += 1
             search = input("\nInput date using format DD/MM/YYYY: ")
-            second = data[(data[': Date :'] == search)]
+            second = data[(data["Date"] == search)]
 
             while len(second) == 0:
                 print("\nNo Record Found! Make sure you are using the correct Date Format: DD/MM/YYYY")
                 search = input("\ninput date using format DD/MM/YYYY: ")
-                second = data[(data[': Date :'] == search)]
+                second = data[(data['Date'] == search)]
             else:
                 print("\nThere are", len(second), "user logs for this date.\n")
                 print(second.to_string(index=False))
 
         elif extract_data_selection == "3":
-            cols = ["\b: Names :", ": Date :"]  # list usage for req 7 list requirement
+            cols = ["Name", "Date"]  # list usage for req 7 list requirement
             data = pd.read_csv('data.txt', sep=',', header=None, names=cols)
-            user_logins = pd.unique(data["\b: Names :"])
-            names_and_dates = {key: [] for key in user_logins}
+            user_login_dates = pd.unique(data["Name"])
+            names_and_dates = {key: [] for key in user_login_dates}
 
             for key in names_and_dates:
-                names = data.loc[data["\b: Names :"] == key]  # getting records for a specific group
-                names_and_dates[key] = list(
-                    names[": Date :"])  # list usage for req 7 list requirement
+                names = data.loc[data["Name"] == key]  # getting records for a specific group
+                names_and_dates[key] = set(names["Date"])  # set usage for req 7 list requirement
 
             print("\n:: View Records by User ::")
             print("-" * 28)
@@ -216,7 +215,15 @@ def extract_data():  # Section C req 5, 6, 7, & 8
                 print()
 
         elif extract_data_selection == "4":
-            print("option 4 test")
+            cols = ["Name", "Date"]  # use of list to satisfy list requirement
+            data = pd.read_csv('data.txt', sep=',', header=None, names=cols)
+            print("\n\t  :: Count of User Logins ::")
+            print("-" * 40)
+            names = data["Name"].value_counts()
+            names = names.to_dict()  # initialising dict
+
+            for key, value in names.items():  # for loop for dictionary to print keys(names) and logins numbers (values)
+                print(key, "has logged in on", value, "occasions.")
 
         elif extract_data_selection == "5":
             print("\n Exiting to Main Menu")
