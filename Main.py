@@ -83,19 +83,19 @@ def encrypt_data():  # Section B req 2, 3 & 4
                               "w") as f:  # file handing with open allows me to not need a close statement
                         f.write(encrypt(encryption_key, message_to_encrypt))
                     break
-                except ValueError:
+                except ValueError:  # catching outside of boundary input
                     print("You must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "2":  # req 3
             while True:
                 file_input = input("\nPlease input the file name to encrypt (format filename.txt): ")
                 print()
-                try:
+                try:  # attempts to open file based on user input
                     with open(file_input) as file_data:
                         lines = file_data.read().strip()
-                        print(lines)
+                        print(lines)  # printing the file that the user has chosen
                     break
-                except FileNotFoundError:
+                except FileNotFoundError:  # catching file not found
                     print("File doesn't exist, Check available files or ensure correct input format filename.txt")
 
             while True:
@@ -106,14 +106,14 @@ def encrypt_data():  # Section B req 2, 3 & 4
                             "\nYou're key is out of bounds, please re enter a key between 1 and 26: "))
                     with open("encryptedFile.txt",
                               "w") as new_encrypted_file:
-                        new_encrypted_file.write(encrypt(file_encryption_key, lines))
+                        new_encrypted_file.write(encrypt(file_encryption_key, lines))  # calling encryption function
                     print("\nEncryption applied, file saved as encryptedFile.txt ")
                     print()
                     with open("encryptedFile.txt", "r") as show_file:
                         lines = show_file.read()
-                        print(lines)
+                        print(lines)  # printing the newly encrypted file
                     break
-                except ValueError:
+                except ValueError:  # catching out of bounds input
                     print("You must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "3":  # req 4
@@ -123,9 +123,9 @@ def encrypt_data():  # Section B req 2, 3 & 4
                 try:
                     with open(file_input) as file_data:
                         lines = file_data.read().strip()
-                        print(lines)
+                        print(lines)  # printing file selected by user
                     break
-                except FileNotFoundError:
+                except FileNotFoundError:  # catching file not found
                     print("File doesn't exist, Check available files or ensure correct input format filename.txt")
 
             while True:
@@ -136,13 +136,13 @@ def encrypt_data():  # Section B req 2, 3 & 4
                             "\nYou're key is out of bounds, please re enter a key between 1 and 26: "))
                     with open("decryptedFile.txt",
                               "w") as new_encrypted_file:
-                        new_encrypted_file.write(decrypt(file_decryption_key, lines))
+                        new_encrypted_file.write(decrypt(file_decryption_key, lines))  # calling decryption function
                     print("\nDecryption applied, file saved as decryptedFile.txt \n")
                     with open("decryptedFile.txt", "r") as show_file:
                         lines = show_file.read()
-                        print(lines)
+                        print(lines)  # prints newly decrypted file
                     break
-                except ValueError:
+                except ValueError:  # catches out of bounds input
                     print("You must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "4":
@@ -169,7 +169,7 @@ def extract_data():  # Section C req 5, 6, 7, & 8
             extract_data_selection = input("\nYou have entered a non digit value, Select again: ")
 
         if extract_data_selection == "1":
-            cols = ["\bName", "Date"]  # defining the columns
+            cols = ["\bName", "Date"]  # defining the columns using LIST
             data = pd.read_csv("data.txt", sep=",", names=cols)  # adds column header
             data.index += 1  # increments index position so index doesnt start at 0
             data.index.names = ["No"]  # index position header
@@ -183,24 +183,24 @@ def extract_data():  # Section C req 5, 6, 7, & 8
             print("-" * 28)
             cols = ["Name", "Date"]  # use of list to satisfy requirement
             data = pd.read_csv("data.txt", header=None, names=cols)
-            data.index.names = ["No"]
-            data.index += 1
-            search = input("\nInput date using format DD/MM/YYYY: ")
-            second = data[(data["Date"] == search)]
+            data.index.names = ["No"]  # index position header
+            data.index += 1  # increments index position so index doesnt start at 0
+            search = input("\nInput date using format DD/MM/YYYY: ")  # user input for date search
+            date_search = data[(data["Date"] == search)]  # creating var that matches date from data and user search
 
-            while len(second) == 0:
+            while len(date_search) == 0:  # if nothing matches while loop keeps looping
                 print("\nNo Record Found! Make sure you are using the correct Date Format: DD/MM/YYYY")
-                search = input("\ninput date using format DD/MM/YYYY: ")
-                second = data[(data['Date'] == search)]
+                search = input("\ninput date using format DD/MM/YYYY: ")  # prompting user for re-entry
+                date_search = data[(data['Date'] == search)]
             else:
-                print("\nThere are", len(second), "user logs for this date.\n")
-                print(second.to_string(index=False))
+                print("\nThere are", len(date_search), "user logs for this date.\n")  # printing length of date_search
+                print(date_search.to_string(index=False))  # converting to string so print output looks presentable
 
         elif extract_data_selection == "3":
             cols = ["Name", "Date"]  # list usage for req 7 list requirement
-            data = pd.read_csv('data.txt', sep=',', header=None, names=cols)
-            user_login_dates = pd.unique(data["Name"])
-            names_and_dates = {key: [] for key in user_login_dates}
+            data = pd.read_csv('data.txt', sep=',', header=None, names=cols)  # pulling list cols into names
+            user_login_dates = pd.unique(data["Name"])  # unique names placed in user_login_dates
+            names_and_dates = {key: [] for key in user_login_dates}  # unique names placed into dict as keys
 
             for key in names_and_dates:
                 names = data.loc[data["Name"] == key]  # getting records for a specific group
@@ -208,21 +208,21 @@ def extract_data():  # Section C req 5, 6, 7, & 8
 
             print("\n:: View Records by User ::")
             print("-" * 28)
-            for key in names_and_dates:
+            for key in names_and_dates:  # for loop that prints out dictionary keys(names) and then the values(dates)
                 print("Name:", key)
-                for item in names_and_dates[key]:
-                    print(item)
+                for values in names_and_dates[key]:
+                    print(values)
                 print()
 
         elif extract_data_selection == "4":
             cols = ["Name", "Date"]  # use of list to satisfy list requirement
-            data = pd.read_csv('data.txt', sep=',', header=None, names=cols)
+            data = pd.read_csv('data.txt', sep=',', header=None, names=cols)  # pulling cols list into names
             print("\n\t  :: Count of User Logins ::")
             print("-" * 40)
-            names = data["Name"].value_counts()
+            names = data["Name"].value_counts()   # counts all instances of different values in Name column
             names = names.to_dict()  # initialising dict
 
-            for key, value in names.items():  # for loop for dictionary to print keys(names) and logins numbers (values)
+            for key, value in names.items():  # for loop for dictionary to print keys(names) and login numbers(values)
                 print(key, "has logged in on", value, "occasions.")
 
         elif extract_data_selection == "5":
@@ -244,15 +244,19 @@ def chat_application():  # Section D req 9 & 10
         chat_application_selection = input("Select a menu - Input a number: ")
         while not chat_application_selection.isdigit():
             chat_application_selection = input("\nYou have entered a non digit value, Select again: ")
+
         if chat_application_selection == "1":
             print("\nStarting Server")
-            os.system("start cmd /k python server.py")
+            os.system("start cmd /k python server.py")  # calling os library to start the server.py file
+
         elif chat_application_selection == "2":
             print("\n Opening Chat Client")
-            os.system("start cmd /k python client.py")
+            os.system("start cmd /k python client.py")  # calling os library to start the client.py file
+
         elif chat_application_selection == "3":
             print("\n Exiting to Main Menu")
             chat_application_loop = False
+
         else:
             print("\nThere is no menu", chat_application_selection, "please try again")
 
@@ -278,7 +282,8 @@ while main_loop:  # loops while main selection isn't expected digits
     elif main_selection == "4":  # quits out of the program
         print("\nYou have exited the Application")
         quit()
-    else:
+
+    else:  # catches incorrect digit input
         print("\nThere is no menu", main_selection, "please try again.")
 
 
