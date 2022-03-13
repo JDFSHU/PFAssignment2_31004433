@@ -84,7 +84,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
                         f.write(encrypt(encryption_key, message_to_encrypt))
                     break
                 except ValueError:  # catching outside of boundary input
-                    print("You must enter a NUMBER between 1 and 26")
+                    print("\nYou must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "2":  # req 3
             while True:
@@ -100,7 +100,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
 
             while True:
                 try:
-                    file_encryption_key = int(input("\nPlease enter the key to encrypt the message: "))
+                    file_encryption_key = int(input("\nInput a number for the encryption key between 1 and 26: "))
                     while file_encryption_key < 1 or file_encryption_key > 26:
                         file_encryption_key = int(input(
                             "\nYou're key is out of bounds, please re enter a key between 1 and 26: "))
@@ -114,7 +114,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
                         print(lines)  # printing the newly encrypted file
                     break
                 except ValueError:  # catching out of bounds input
-                    print("You must enter a NUMBER between 1 and 26")
+                    print("\nYou must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "3":  # req 4
             while True:
@@ -143,7 +143,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
                         print(lines)  # prints newly decrypted file
                     break
                 except ValueError:  # catches out of bounds input
-                    print("You must enter a NUMBER between 1 and 26")
+                    print("\nYou must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "4":
             print("\n Exiting to Main Menu")
@@ -161,7 +161,7 @@ def extract_data():  # Section C req 5, 6, 7, & 8
         print("1. View all Records")
         print("2. View Records by Date")
         print("3. View Records by User")
-        print("4. Count User by Date")
+        print("4. Count User Logs")
         print("5. Return to Main Menu\n")
 
         extract_data_selection = input("Select a menu - Input a number: ")
@@ -189,10 +189,12 @@ def extract_data():  # Section C req 5, 6, 7, & 8
             date_search = data[(data["Date"] == search)]  # creating var that matches date from data and user search
 
             while len(date_search) == 0:  # if nothing matches while loop keeps looping
-                print("\nNo Record Found! Make sure you are using the correct Date Format: DD/MM/YYYY")
+                print("\nNo Record Found! Make sure you are using the correct Date Format: DD/MM/YYYY E.G 09/09/2021")
                 search = input("\ninput date using format DD/MM/YYYY: ")  # prompting user for re-entry
                 date_search = data[(data['Date'] == search)]
             else:
+                print("\n\t  :: User Logs by Date ::")
+                print("-" * 38)
                 print("\nThere are", len(date_search), "user logs for this date.\n")  # printing length of date_search
                 print(date_search.to_string(index=False))  # converting to string so print output looks presentable
 
@@ -223,7 +225,7 @@ def extract_data():  # Section C req 5, 6, 7, & 8
             names = names.to_dict()  # initialising dict
 
             for key, value in names.items():  # for loop for dictionary to print keys(names) and login numbers(values)
-                print(key, "has logged in on", value, "occasions.")
+                print(key, "has logged in on", value, "occasions")
 
         elif extract_data_selection == "5":
             print("\n Exiting to Main Menu")
