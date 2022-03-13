@@ -8,8 +8,8 @@ import os
 
 
 def main_menu():  # Main menu function
-    print("\n:: Welcome to the Application ::")
-    print("-" * 32)
+    print("\n\t:: Welcome to the Application ::")
+    print("-" * 42)
     print("1: Encrypt Data")
     print("2: Extract information from files")
     print("3: Chat Application")
@@ -156,8 +156,8 @@ def encrypt_data():  # Section B req 2, 3 & 4
 def extract_data():  # Section C req 5, 6, 7, & 8
     extract_data_loop = True
     while extract_data_loop:
-        print("\n\t:: Extract Data ::")
-        print("-" * 28)
+        print("\n\t\t  :: Extract Data ::")
+        print("-" * 42)
         print("1. View all Records")
         print("2. View Records by Date")
         print("3. View Records by User")
@@ -173,14 +173,14 @@ def extract_data():  # Section C req 5, 6, 7, & 8
             data = pd.read_csv("data.txt", sep=",", names=cols)  # adds column header
             data.index += 1  # increments index position so index doesnt start at 0
             data.index.names = ["No"]  # index position header
-            print(f"\n\t:: View ALl Records :: \n "
-                  f"\b\b--------------------------------\n\n", data)
-            print()
-            print("-" * 33)
+            print(f"\n\t\t:: View ALl Records ::")
+            print("-" * 42)
+            print(data)
+            print("-" * 42)
 
         elif extract_data_selection == "2":
-            print("\n:: View Records by Date ::")
-            print("-" * 28)
+            print("\n\t  :: View Records by Date ::")
+            print("-" * 42)
             cols = ["Name", "Date"]  # use of list to satisfy requirement
             data = pd.read_csv("data.txt", header=None, names=cols)
             data.index.names = ["No"]  # index position header
@@ -193,9 +193,9 @@ def extract_data():  # Section C req 5, 6, 7, & 8
                 search = input("\ninput date using format DD/MM/YYYY: ")  # prompting user for re-entry
                 date_search = data[(data['Date'] == search)]
             else:
-                print("\n\t  :: User Logs by Date ::")
-                print("-" * 38)
-                print("\nThere are", len(date_search), "user logs for this date.\n")  # printing length of date_search
+                print("\n\t\t:: User Logs by Date ::")
+                print("-" * 42)
+                print("   There are", len(date_search), "User Logs for this Date\n")  # printing length of date_search
                 print(date_search.to_string(index=False))  # converting to string so print output looks presentable
 
         elif extract_data_selection == "3":
@@ -208,24 +208,24 @@ def extract_data():  # Section C req 5, 6, 7, & 8
                 names = data.loc[data["Name"] == key]  # getting records for a specific group
                 names_and_dates[key] = set(names["Date"])  # set usage for req 7 list requirement
 
-            print("\n:: View Records by User ::")
-            print("-" * 28)
+            print("\n\t   :: View Records by User ::")
+            print("-" * 42)
             for key in names_and_dates:  # for loop that prints out dictionary keys(names) and then the values(dates)
-                print("Name:", key)
+                print("\t\t  Name:", key)
                 for values in names_and_dates[key]:
-                    print(values)
+                    print("\t\t\t", values)
                 print()
 
         elif extract_data_selection == "4":
             cols = ["Name", "Date"]  # use of list to satisfy list requirement
             data = pd.read_csv('data.txt', sep=',', header=None, names=cols)  # pulling cols list into names
-            print("\n\t  :: Count of User Logins ::")
-            print("-" * 40)
+            print("\n\t   :: Count of User Logins ::")
+            print("-" * 42)
             names = data["Name"].value_counts()   # counts all instances of different values in Name column
             names = names.to_dict()  # initialising dict
 
             for key, value in names.items():  # for loop for dictionary to print keys(names) and login numbers(values)
-                print(key, "has logged in on", value, "occasions")
+                print(key, "has logged in", value, "times")
 
         elif extract_data_selection == "5":
             print("\n Exiting to Main Menu")
@@ -238,7 +238,7 @@ def chat_application():  # Section D req 9 & 10
     chat_application_loop = True
     while chat_application_loop:
         print("\n\t :: Chat Application ::")
-        print("-" * 32)
+        print("-" * 42)
         print("1. Start Server")
         print("2. Start Chat (Client)")
         print("3. Return to Main Menu\n")
