@@ -1,7 +1,4 @@
-Hi my name is Zairul
+Hi my name is Zairul Mazwan
+I am a Cybersecurity student at Sheffield Hallam University
 I like programming
-
-
-Especially Python I use Tensor Flow library
-
-Also I like Java and PHP
+I learn Python in the Programming Fundamentals module
