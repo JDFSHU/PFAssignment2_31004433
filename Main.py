@@ -19,8 +19,9 @@ def main_menu():  # Main menu function
 def encrypt_data():  # Section B req 2, 3 & 4
 
     def encrypt(key, message):
-        message = message.lower()
         alpha = "abcdefghijklmnopqrstuvwxyz"  # alphabet used to encrypt
+        message = message
+        alpha = alpha + alpha.upper()
         result = ""  # creating empty variable to store for loop as it iterates
 
         for letter in message:
@@ -34,8 +35,9 @@ def encrypt_data():  # Section B req 2, 3 & 4
         return encrypted_message
 
     def decrypt(key, message):
-        message = message.lower()
         alpha = "abcdefghijklmnopqrstuvwxyz"  # alphabet used to encrypt
+        message = message
+        alpha = alpha + alpha.upper()
         result = ""  # creating empty variable to store for loop as it iterates
 
         for letter in message:
