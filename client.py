@@ -7,9 +7,9 @@ SERVER_HOST = "127.0.0.1"  # server's IP address
 SERVER_PORT = 5002  # server's port
 separator_token = "<SEP>"  # we will use this to separate the client name & message
 s = socket.socket()  # initialize TCP socket
-print(f"[*] Connecting to {SERVER_HOST}:{SERVER_PORT}...")
+print(f"[Connecting] Connecting to {SERVER_HOST}:{SERVER_PORT}...")
 s.connect((SERVER_HOST, SERVER_PORT))  # connect to the server
-print("[+] Connected.")
+print("[Established] Connected.")
 name = input("Enter your name: ")
 
 

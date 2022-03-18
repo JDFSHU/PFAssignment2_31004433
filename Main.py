@@ -7,15 +7,6 @@ import os
 # Computer Networks
 
 
-def main_menu():  # Main menu function
-    print("\n\t:: Welcome to the Application ::")
-    print("-" * 42)
-    print("1: Encrypt Data")
-    print("2: Extract information from files")
-    print("3: Chat Application")
-    print("4: Quit\n")
-
-
 def encrypt_data():  # Section B req 2, 3 & 4
 
     def encrypt(key, message):
@@ -31,7 +22,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
                 result = result + alpha[letter_index]
             else:
                 result = result + letter
-        encrypted_message = result.replace(" ", "@")
+        encrypted_message = result.replace(" ", "@")  # replacing whitespace with @ symbol
         return encrypted_message
 
     def decrypt(key, message):
@@ -47,12 +38,12 @@ def encrypt_data():  # Section B req 2, 3 & 4
                 result = result + alpha[letter_index]
             else:
                 result = result + letter
-        decrypted_message = result.replace("@", " ")
+        decrypted_message = result.replace("@", " ")  # replacing @ with whitespace reversing the prior encryption
         return decrypted_message
 
     encrypt_data_loop = True
     while encrypt_data_loop:
-        print("\n\t :: Encrypt/Decrypt Data ::")
+        print("\n\t\t:: Encrypt/Decrypt Data ::")  # Menu
         print("-" * 42)
         print("1. Encrypt a message and save into a file")
         print("2. Encrypt a file")
@@ -96,7 +87,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
                 except FileNotFoundError:  # catching file not found
                     print("File doesn't exist, Check available files or ensure correct input format filename.txt")
 
-            while True:
+            while True:  # while loop with try/except block to ensure correct key and file input
                 try:
                     file_encryption_key = int(input("\nInput a number for the encryption key between 1 and 26: "))
                     while file_encryption_key < 1 or file_encryption_key > 26:
@@ -115,7 +106,7 @@ def encrypt_data():  # Section B req 2, 3 & 4
                     print("\nYou must enter a NUMBER between 1 and 26")
 
         elif encrypt_data_selection == "3":  # req 4
-            while True:
+            while True:  # while loop with try/except block to ensure correct file input
                 file_input = input("\nPlease input the file name to decrypt (format filename.txt): ")
                 print()
                 try:
@@ -126,10 +117,10 @@ def encrypt_data():  # Section B req 2, 3 & 4
                 except FileNotFoundError:  # catching file not found
                     print("File doesn't exist, Check available files or ensure correct input format filename.txt")
 
-            while True:
+            while True:  # while loop with try/except block to ensure correct key and file input
                 try:
                     file_decryption_key = int(input("\nInput a number for the decryption key between 1 and 26: "))
-                    while file_decryption_key < 1 or file_decryption_key > 26:
+                    while file_decryption_key < 1 or file_decryption_key > 26:  # entry exception handling
                         file_decryption_key = int(input(
                             "\nYou're key is out of bounds, please re enter a key between 1 and 26: "))
                     with open("decryptedFile.txt",
@@ -141,20 +132,20 @@ def encrypt_data():  # Section B req 2, 3 & 4
                         print(lines)  # prints newly decrypted file
                     break
                 except ValueError:  # catches out of bounds input
-                    print("\nYou must enter a NUMBER between 1 and 26")
+                    print("\nYou must enter a NUMBER between 1 and 26")  # entry exception handling
 
         elif encrypt_data_selection == "4":
-            print("\n Exiting to Main Menu")
+            print("\n\t\t  Exiting to Main Menu")
             encrypt_data_loop = False
 
         else:
-            print("\nThere is no menu", encrypt_data_selection, "please try again")
+            print("\nThere is no menu", encrypt_data_selection, "please try again")  # entry exception handling
 
 
 def extract_data():  # Section C req 5, 6, 7, & 8
     extract_data_loop = True
     while extract_data_loop:
-        print("\n\t\t  :: Extract Data ::")
+        print("\n\t\t  :: Extract Data ::")  # Menu
         print("-" * 42)
         print("1. View all Records")
         print("2. View Records by Date")
@@ -163,7 +154,7 @@ def extract_data():  # Section C req 5, 6, 7, & 8
         print("5. Return to Main Menu\n")
 
         extract_data_selection = input("Select a menu - Input a number: ")
-        while not extract_data_selection.isdigit():
+        while not extract_data_selection.isdigit():  # digit exception handling
             extract_data_selection = input("\nYou have entered a non digit value, Select again: ")
 
         if extract_data_selection == "1":
@@ -223,26 +214,27 @@ def extract_data():  # Section C req 5, 6, 7, & 8
             names = names.to_dict()  # initialising dict
 
             for key, value in names.items():  # for loop for dictionary to print keys(names) and login numbers(values)
-                print(key, "has logged in", value, "times")
+                print("  ", key, "has logged in", value, "times")
 
         elif extract_data_selection == "5":
-            print("\n Exiting to Main Menu")
+            print("\n\t\t  Exiting to Main Menu")
             extract_data_loop = False
+
         else:
-            print("\nThere is no menu", extract_data_selection, "please try again")
+            print("\nThere is no menu", extract_data_selection, "please try again")  # entry exception handling
 
 
 def chat_application():  # Section D req 9 & 10
     chat_application_loop = True
     while chat_application_loop:
-        print("\n\t :: Chat Application ::")
+        print("\n\t\t :: Chat Application ::")  # Menu
         print("-" * 42)
         print("1. Start Server")
         print("2. Start Chat (Client)")
         print("3. Return to Main Menu\n")
 
         chat_application_selection = input("Select a menu - Input a number: ")
-        while not chat_application_selection.isdigit():
+        while not chat_application_selection.isdigit():  # digit exception handling
             chat_application_selection = input("\nYou have entered a non digit value, Select again: ")
 
         if chat_application_selection == "1":
@@ -254,18 +246,23 @@ def chat_application():  # Section D req 9 & 10
             os.system("start cmd /k python client.py")  # calling os library to start the client.py file
 
         elif chat_application_selection == "3":
-            print("\n Exiting to Main Menu")
-            chat_application_loop = False
+            print("\n\t\t  Exiting to Main Menu")
+            chat_application_loop = False  # breaking out of submenu loop returning to main menu
 
         else:
-            print("\nThere is no menu", chat_application_selection, "please try again")
+            print("\nThere is no menu", chat_application_selection, "please try again")  # entry exception handling
 
 
 # This is the main while loop that checks for correct input from the user for the menu and then based on input navigates
 # around the program or exits.
 main_loop = True
-while main_loop:  # loops while main selection isn't expected digits
-    main_menu()
+while main_loop:
+    print("\n\t:: Welcome to the Application ::")
+    print("-" * 42)
+    print("1: Encrypt Data")
+    print("2: Extract information from files")
+    print("3: Chat Application")
+    print("4: Quit\n")
     main_selection = input("Select a menu - Input a number: ")  # asking user for menu input
     while not main_selection.isdigit():  # checking that main menu selection is a digit
         main_selection = input("\nYou have entered a non digit value, Select again: ")  # prompting reentry
